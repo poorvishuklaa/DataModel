@@ -23,10 +23,11 @@
         </seed-data>
     </entity>
 
-    <extend-entity entity-name="Party" package="assignment">
-        <field name="auditedField" type="text-medium" enable-audit-log="true"/>
-        <field name="encryptedField" type="text-medium" encrypt="true"/>
-    </extend-entity>
+<!--    <extend-entity entity-name="Party" package="assignment">-->
+<!--        <field name="auditedField" type="text-medium" enable-audit-log="true"/>-->
+<!--        <field name="encryptedField" type="text-medium" encrypt="true"/>-->
+<!--    </extend-entity>-->
+
     <!--Person entity-->
     <entity entity-name="Person" package="assignment">
         <field name="partyId" type="id" is-pk="true"/>
@@ -64,7 +65,8 @@
             </moqui.basic.EnumerationType>
         </seed-data>
     </entity>
-    
+
+    <!--Contact mech-->
     <entity entity-name="ContactMech" package="assignment">
         <field name="contactMechId" type="id" is-pk="true"/>
         <field name="contactMechTypeEnumId" type="id" />
@@ -109,4 +111,30 @@
         </relationship>
     </entity>
 
+    <!--contactMechPurpose-->
+    <entity entity-name="ContactMechPurpose" package="assignment">
+        <field name="contactMechPurposeId" type="id" is-pk="true"/>
+        <field name="purposeName" type="text-medium" not-null="true"/>
+    </entity>
+
+    <!---PartyContactMECH -->
+    <entity entity-name="PartyContactMech" package="assignment">
+        <field name="partyContactMechId" type="id" is-pk="true"/>
+        <field name="partyId" type="id"/>
+        <field name="contactMechId" type="id"/>
+        <field name="contactMechPurposeId" type="id"/>
+        <field name="fromDate" type="date"/>
+
+        <relationship type="one" related="Party" >
+            <key-map field-name ="partyId"/>
+        </relationship>
+
+        <relationship type ="one"  related= "ContactMech">
+            <key-map field-name ="contactMechId"/>
+        </relationship>
+
+        <relationship type= "one" related ="ContactMechPurpose">
+            <key-map field-name ="contactMechPurposeId"/>
+        </relationship>
+    </entity>
 </entities>
